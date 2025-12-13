@@ -6,6 +6,7 @@
     <title>Man UTD</title>
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
     <link rel="stylesheet" href="assets/themify-icons/themify-icons.css">
 </head>
 <body>
@@ -17,7 +18,7 @@
                 <li><a href="#match">Tickets</a></li>
                 <li><a href="#store">Contact</a></li>
                 <li>
-                    <a href="">
+                    <a href="#">
                         More
                         <i class=" nav-arrow-down ti-angle-down"></i>
                     </a>
@@ -30,7 +31,12 @@
             </ul>
             <!-- begin search box -->
             <div class="search-btn">
-                <i class="search-icon ti-search"></i>
+                <!-- <i class="search-icon ti-search"><a href="https://www.google.com" target="_blank"></a></i> -->
+                <a href="https://www.google.com" target="_blank"><i class="search-icon ti-search"></i></a>
+            </div>
+
+            <div id="mobile-menu" class="mobile-menu-btn">
+                <i class="menu-icon ti-menu"></i>
             </div>
             <!-- end search box -->
         </div>
@@ -150,10 +156,10 @@
                     <div class="col col-half contact-form">
                         <form action="">
                             <div class="row">
-                                <div class="col col-half">
+                                <div class="col col-half s-col-full">
                                     <input type="text" class="form-control" placeholder="Name" required>
                                 </div>
-                                <div class="col col-half">
+                                <div class="col col-half s-col-full mg-t-8">
                                     <input type="email" class="form-control" placeholder="Email" required>
                                 </div>
                             </div>
@@ -246,6 +252,38 @@
         modalContainer.addEventListener('click', function (event) {
             event.stopPropagation();
         });
+    </script>
+
+    <script>
+        var header= document.getElementById('header');
+        var mobileMenu= document.getElementById('mobile-menu');
+        var headerHeight = header.clientHeight;
+
+        // đóng mở mobile menu
+        mobileMenu.onclick = function() {
+            var isClose = header.clientHeight === 46;
+            if (isClose) {
+                header.style.height = 'auto';
+            }
+            else {
+                header.style.height = '46px';
+            }
+        }
+
+        // tự động đóng khi chọn menu
+        var menuItems = document.querySelectorAll('#nav li a[href*="#"]');
+        for (var i = 0; i < menuItems.length; i++) {
+            var menuItem = menuItems[i];
+            
+            menuItem.onclick = function(event) {
+                var isParenMenu = this.nextElementSibling && this.nextElementSibling.classList.contains('subnav');
+                if (isParenMenu) {
+                    event.preventDefault();
+                } else {
+                    header.style.height = null;
+                }
+            }
+        }
     </script>
 </body>
 </html>
